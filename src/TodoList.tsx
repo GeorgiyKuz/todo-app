@@ -1,5 +1,11 @@
 import React from "react";
-import { List, ListItem, ListItemText, Checkbox } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Checkbox,
+  ListItemButton,
+} from "@mui/material";
 
 interface Task {
   id: number;
@@ -18,13 +24,15 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, toggleTask }) => {
       {tasks.map((task) => (
         <ListItem
           key={task.id}
-          component="div" // or "li", depending on your use case
-          button
-          onClick={() => toggleTask(task.id)}
-          sx={{ textDecoration: task.completed ? "line-through" : "none" }}
+          disablePadding // Убираем внутренние отступы для ListItemButton
         >
-          <Checkbox checked={task.completed} />
-          <ListItemText primary={task.text} />
+          <ListItemButton
+            onClick={() => toggleTask(task.id)}
+            sx={{ textDecoration: task.completed ? "line-through" : "none" }}
+          >
+            <Checkbox checked={task.completed} />
+            <ListItemText primary={task.text} />
+          </ListItemButton>
         </ListItem>
       ))}
     </List>
